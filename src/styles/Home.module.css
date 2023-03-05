@@ -1,0 +1,125 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  /*justify-content: space-between;*/
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
+
+.main h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  font-family: var(--font);
+  margin: 0;
+  padding: 0;
+}
+
+.main form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: var(--max-width);
+  z-index: 2;
+}
+
+.main input {
+  border-radius: 0.5em;
+  padding: 10px;
+  border: 1px solid #aaa;
+  width: 50%;
+  margin: 50px;
+}
+
+.main input:focus {
+  outline: 3px solid var(--main-color);
+  border: none;
+}
+
+.main form button {
+  background-color: var(--main-color);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+  width: 10%;
+  transition: 0.8 ease;
+}
+
+.main form button:hover {
+  transform: scale(1.05);
+  transition: 0.8 ease;
+}
+
+.main .resultLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 50px auto;
+}
+
+.main .resultLink p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--font);
+  margin: 0;
+  padding: 0;
+  margin: 20px auto;
+}
+
+.main .resultLink a {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--font);
+  padding: 0;
+  color: rgb(79, 120, 254);
+}
+
+.main .resultLink button {
+  background-color: transparent;
+  color: #000;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.8 ease;
+}
+
+.main .resultLink button span {
+  font-size: 35px;
+  transform: translateY(8px);
+}
+
+.copyFeedback {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+
+  width: 300px;
+  height: 50px;
+
+  background-color: #333;
+  color: #fff;
+  border-radius: 0.3em;
+  border-left: 5px solid var(--main-color);
+
+  font-family: var(--font);
+  text-align: center;
+
+  padding-top: 15px;
+
+  animation: fadeOut 3s linear forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
