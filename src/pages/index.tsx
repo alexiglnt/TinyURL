@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from '@/styles/Home.module.css'
+// @ts-ignore
+import { Helmet } from 'react-helmet';
 
 interface Props {
   shortUrl?: string;
@@ -14,15 +16,19 @@ const Home = (props: Props) => {
   const notify = (text: string) => {
     // On change le texte de la notification
     setNotifText(text);
-
-    // On affiche la notification
-    setCopied(true);
-
-    // On la cache après 1 seconde
-    setTimeout(() => {
-      setCopied(false);
-    }, 1000);
+  
+    
+    if (typeof window !== "undefined") {
+      // alert("fdfsjkn")
+      // On affiche la notification
+      setCopied(true);
+      // On la cache après 1 seconde, seulement côté client
+      setTimeout(() => {
+        setCopied(false);
+      }, 1000);
+    }
   }
+  
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -52,9 +58,10 @@ const Home = (props: Props) => {
 
   return (
     <>
-      <head>
+      <Helmet>
+        <title> Tiny URL </title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-      </head>
+      </Helmet>
 
       <main className={styles.main} >
 
@@ -66,7 +73,7 @@ const Home = (props: Props) => {
             id="long-url"
             value={longUrl}
             onChange={(event) => setLongUrl(event.target.value)}
-          />
+          /> 
           <button type="submit">Shorten</button>
         </form>
 

@@ -2,11 +2,10 @@ import * as redis from 'redis';
 import { NextApiRequest, NextApiResponse } from 'next'
 import ShortUniqueId from 'short-unique-id';
 
-async function tinyURL(url : string) {
+async function tinyURLNumberAI(url : string) {
 
-  // reduire l'url
-  const uid = new ShortUniqueId();
-  const shortUrl = uid.randomUUID(2);
+  let sizeDatabase = await client.dbSize();
+  const shortUrl = (sizeDatabase + 1).toString();
 
   // clé = shortURl et valeur = longUrl
   let cle_valeur = {
@@ -19,6 +18,30 @@ async function tinyURL(url : string) {
 
   await client.set(shortUrl, url);
   console.log("url dans redis : ", await client.get(shortUrl));
+  console.log("taille bdd : ", await client.dbSize());
+
+  return cle_valeur;
+
+}
+
+async function tinyURL(url : string) {
+
+  // reduire l'url
+  const uid = new ShortUniqueId();
+  const shortUrl = uid.randomUUID(3);
+
+  // clé = shortURl et valeur = longUrl
+  let cle_valeur = {
+    longUrl: url,
+    shortUrl: shortUrl,
+    newUrl: `http://localhost:3000/api/${shortUrl}`
+  };
+
+  console.log("url avant/apres : ", "", cle_valeur);
+
+  await client.set(shortUrl, url);
+  console.log("url dans redis : ", await client.get(shortUrl));
+  console.log("taille bdd : ", await client.dbSize());
 
   return cle_valeur;
 
@@ -66,7 +89,7 @@ export default async function Handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'POST') {
     // Handle POST request
-    let result = await tinyURL(req.body.longUrl);
+    let result = await tinyURLNumberAI(req.body.longUrl);
     console.log("result : ", result);
     
     res.status(200).json(result.newUrl); 

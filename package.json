@@ -20,6 +20,7 @@
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-helmet": "^6.1.0",
     "redis": "^4.6.4",
     "short-unique-id": "^4.4.4",
     "tls": "^0.0.1",
