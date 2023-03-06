@@ -93,7 +93,6 @@ const Home = (props: Props) => {
 
             </div>
             <center>  {copied && <span className={styles.copyFeedback}> {notifText} </span>} </center>
-
           </div>
         )}
 

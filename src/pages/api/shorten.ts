@@ -11,7 +11,7 @@ async function tinyURLNumberAI(url : string) {
   let cle_valeur = {
     longUrl: url,
     shortUrl: shortUrl,
-    newUrl: `http://localhost:3000/api/${shortUrl}`
+    newUrl: `http://localhost:3000/${shortUrl}`
   };
 
   console.log("url avant/apres : ", "", cle_valeur);
@@ -26,15 +26,22 @@ async function tinyURLNumberAI(url : string) {
 
 async function tinyURL(url : string) {
 
+  let cpt = 4;
+
   // reduire l'url
   const uid = new ShortUniqueId();
-  const shortUrl = uid.randomUUID(3);
+  let shortUrl = uid.randomUUID(cpt);
+
+  while(await client.get(shortUrl)) {
+    cpt++;
+    shortUrl = uid.randomUUID(cpt);
+  }
 
   // clé = shortURl et valeur = longUrl
   let cle_valeur = {
     longUrl: url,
     shortUrl: shortUrl,
-    newUrl: `http://localhost:3000/api/${shortUrl}`
+    newUrl: `http://localhost:3000/${shortUrl}`
   };
 
   console.log("url avant/apres : ", "", cle_valeur);
@@ -89,7 +96,7 @@ export default async function Handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'POST') {
     // Handle POST request
-    let result = await tinyURLNumberAI(req.body.longUrl);
+    let result = await tinyURL(req.body.longUrl);
     console.log("result : ", result);
     
     res.status(200).json(result.newUrl); 
